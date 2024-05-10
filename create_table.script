@@ -1,0 +1,24 @@
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  fullname VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE 
+);
+
+CREATE TABLE status (
+id INTEGER PRIMARY KEY,
+name  VARCHAR(50) DEFAULT [('new',), ('in progress',), ('completed',)] UNIQUE
+);
+
+CREATE TABLE tasks (
+id INTEGER PRIMARY KEY,
+title VARCHAR(100) NOT NULL,
+description TEXT DEFAULT 'Опис завдання',
+status_id INTEGER,
+users_id INTEGER,
+FOREIGN KEY (status_id) REFERENCES status(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE,
+FOREIGN KEY (users_id) REFERENCES users(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
